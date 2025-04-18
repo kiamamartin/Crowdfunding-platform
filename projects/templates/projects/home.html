@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block title %}FundRaiser - Crowdfunding Platform{% endblock %}
+
+{% block content %}
+<div class="space-y-12">
+    <!-- Hero Section -->
+    <section class="bg-indigo-700 text-white rounded-lg shadow-xl p-8 md:p-12">
+        <div class="max-w-3xl mx-auto text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">Fund Your Dreams, Support Others</h1>
+            <p class="text-xl mb-8">A community-driven platform to bring creative projects to life.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="{% url 'create_project' %}" class="bg-white text-indigo-700 hover:bg-indigo-100 font-bold py-3 px-6 rounded-lg transition duration-300">Start a Project</a>
+                <a href="{% url 'project_list' %}" class="bg-indigo-600 hover:bg-indigo-500 border border-white font-bold py-3 px-6 rounded-lg transition duration-300">Explore Projects</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Projects -->
+    <section>
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-3xl font-bold">Featured Projects</h2>
+            <a href="{% url 'project_list' %}" class="text-indigo-600 hover:text-indigo-800">View all →</a>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for project in featured_projects %}
+            <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg hover:-translate-y-1">
+                <img src="https://via.placeholder.com/600x400" alt="{{ project.title }}" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">{{ project.title }}</h3>
+                    <p class="text-gray-600 mb-4">{{ project.description|truncatewords:20 }}</p>
+                    
+                    <div class="mb-4">
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-indigo-600 h-2.5 rounded-full" style="width: {{ project.progress }}%"></div>
+                        </div>
+                        <div class="flex justify-between mt-2 text-sm">
+                            <span>${{ project.current_amount }} raised</span>
+                            <span>{{ project.progress }}% of ${{ project.goal_amount }}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-500">{{ project.days_left }} days left</span>
+                        <a href="{% url 'project_detail' project.id %}" class="bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded">View Project</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-span-3 text-center py-8">
+                <p class="text-gray-500 text-lg">No featured projects yet. Be the first to create one!</p>
+                <a href="{% url 'create_project' %}" class="mt-4 inline-block bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded">Start a Project</a>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="bg-gray-100 rounded-lg p-8">
+        <h2 class="text-3xl font-bold mb-8 text-center">How It Works</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="text-center">
+                <div class="bg-indigo-100 text-indigo-700 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-2xl font-bold">1</span>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Create a Project</h3>
+                <p class="text-gray-600">Share your idea with our community and set your funding goal.</p>
+            </div>
+            <div class="text-center">
+                <div class="bg-indigo-100 text-indigo-700 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-2xl font-bold">2</span>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Get Funded</h3>
+                <p class="text-gray-600">Receive donations from supporters who believe in your project.</p>
+            </div>
+            <div class="text-center">
+                <div class="bg-indigo-100 text-indigo-700 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-2xl font-bold">3</span>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Bring It to Life</h3>
+                <p class="text-gray-600">Use the funds to make your project a reality and share updates.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Stories -->
+    <section>
+        <h2 class="text-3xl font-bold mb-6 text-center">Success Stories</h2>
+        <div class="bg-white rounded-lg shadow-md p-8">
+            <div class="flex flex-col md:flex-row items-center gap-8">
+                <img src="https://via.placeholder.com/400x400" alt="Success Story" class="w-full md:w-1/3 rounded-lg">
+                <div>
+                    <h3 class="text-2xl font-bold mb-2">EcoTech Water Filter</h3>
+                    <p class="text-gray-600 mb-4">
+                        "Thanks to the amazing support from the FundRaiser community, we were able to develop our 
+                        revolutionary water filter that's now helping thousands of people access clean water. 
+                        The platform made it easy to share our vision and connect with supporters."
+                    </p>
+                    <p class="font-bold">- Sarah Johnson, Project Creator</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

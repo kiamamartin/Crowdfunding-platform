@@ -1,0 +1,99 @@
+{% extends 'admin/base_admin.html' %}
+
+{% block admin_title %}Platform Settings{% endblock %}
+
+{% block admin_content %}
+<div class="bg-white rounded-lg shadow-md p-6">
+    <h2 class="text-xl font-semibold mb-6">Platform Settings</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="space-y-4">
+            <h3 class="text-lg font-medium">General Settings</h3>
+            
+            <div class="space-y-2">
+                <label for="site_name" class="block text-sm font-medium text-gray-700">
+                    Site Name
+                </label>
+                <input type="text" id="site_name" name="site_name" value="FundRaiser" 
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+            
+            <div class="space-y-2">
+                <label for="contact_email" class="block text-sm font-medium text-gray-700">
+                    Contact Email
+                </label>
+                <input type="email" id="contact_email" name="contact_email" value="contact@fundraiser.com" 
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+            
+            <div class="space-y-2">
+                <label for="platform_fee" class="block text-sm font-medium text-gray-700">
+                    Platform Fee (%)
+                </label>
+                <input type="number" id="platform_fee" name="platform_fee" value="5" min="0" max="100" step="0.1"
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+        </div>
+        
+        <div class="space-y-4">
+            <h3 class="text-lg font-medium">Project Settings</h3>
+            
+            <div class="space-y-2">
+                <label for="min_project_duration" class="block text-sm font-medium text-gray-700">
+                    Minimum Project Duration (days)
+                </label>
+                <input type="number" id="min_project_duration" name="min_project_duration" value="7" min="1" 
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+            
+            <div class="space-y-2">
+                <label for="max_project_duration" class="block text-sm font-medium text-gray-700">
+                    Maximum Project Duration (days)
+                </label>
+                <input type="number" id="max_project_duration" name="max_project_duration" value="90" min="1" 
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+            
+            <div class="space-y-2">
+                <label for="require_approval" class="flex items-center">
+                    <input type="checkbox" id="require_approval" name="require_approval" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                    <span class="ml-2 text-sm text-gray-700">Require Admin Approval for New Projects</span>
+                </label>
+            </div>
+        </div>
+    </div>
+    
+    <div class="mt-8 pt-6 border-t border-gray-200">
+        <h3 class="text-lg font-medium mb-4">Email Notifications</h3>
+        
+        <div class="space-y-4">
+            <div class="space-y-2">
+                <label for="notify_new_project" class="flex items-center">
+                    <input type="checkbox" id="notify_new_project" name="notify_new_project" checked class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                    <span class="ml-2 text-sm text-gray-700">Notify Admins on New Project Creation</span>
+                </label>
+            </div>
+            
+            <div class="space-y-2">
+                <label for="notify_new_donation" class="flex items-center">
+                    <input type="checkbox" id="notify_new_donation" name="notify_new_donation" checked class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                    <span class="ml-2 text-sm text-gray-700">Notify Project Creator on New Donation</span>
+                </label>
+            </div>
+            
+            <div class="space-y-2">
+                <label for="notify_project_funded" class="flex items-center">
+                    <input type="checkbox" id="notify_project_funded" name="notify_project_funded" checked class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                    <span class="ml-2 text-sm text-gray-700">Notify Project Creator When Project is Fully Funded</span>
+                </label>
+            </div>
+        </div>
+    </div>
+    
+    <div class="flex justify-end mt-8">
+        <button type="button" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">
+            Save Settings
+        </button>
+    </div>
+</div>
+{% endblock %}

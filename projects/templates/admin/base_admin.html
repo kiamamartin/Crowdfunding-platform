@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard - FundRaiser{% endblock %}
+
+{% block content %}
+<div class="flex min-h-screen bg-gray-100">
+    <!-- Sidebar -->
+    <div class="w-64 bg-indigo-800 text-white">
+        <div class="p-4 font-bold text-xl">Admin Dashboard</div>
+        <nav class="mt-4">
+            <a href="{% url 'admin_dashboard' %}" class="block py-2.5 px-4 rounded transition duration-200 {% if active_tab == 'dashboard' %}bg-indigo-700{% else %}hover:bg-indigo-700{% endif %}">
+                Dashboard
+            </a>
+            <a href="{% url 'admin_projects' %}" class="block py-2.5 px-4 rounded transition duration-200 {% if active_tab == 'projects' %}bg-indigo-700{% else %}hover:bg-indigo-700{% endif %}">
+                Projects
+            </a>
+            <a href="{% url 'admin_users' %}" class="block py-2.5 px-4 rounded transition duration-200 {% if active_tab == 'users' %}bg-indigo-700{% else %}hover:bg-indigo-700{% endif %}">
+                Users
+            </a>
+            <a href="{% url 'admin_donations' %}" class="block py-2.5 px-4 rounded transition duration-200 {% if active_tab == 'donations' %}bg-indigo-700{% else %}hover:bg-indigo-700{% endif %}">
+                Donations
+            </a>
+            <a href="{% url 'admin_comments' %}" class="block py-2.5 px-4 rounded transition duration-200 {% if active_tab == 'comments' %}bg-indigo-700{% else %}hover:bg-indigo-700{% endif %}">
+                Comments
+            </a>
+            <a href="{% url 'admin_settings' %}" class="block py-2.5 px-4 rounded transition duration-200 {% if active_tab == 'settings' %}bg-indigo-700{% else %}hover:bg-indigo-700{% endif %}">
+                Settings
+            </a>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 overflow-x-hidden overflow-y-auto">
+        <!-- Top Navigation -->
+        <div class="bg-white shadow-md p-4 flex justify-between items-center">
+            <h1 class="text-xl font-semibold">{% block admin_title %}Admin Dashboard{% endblock %}</h1>
+            <div class="flex items-center space-x-4">
+                <span>{{ request.user.username }}</span>
+                <a href="{% url 'home' %}" class="text-indigo-600 hover:text-indigo-800">Back to Site</a>
+                <form method="post" action="{% url 'logout' %}" class="inline">
+                    {% csrf_token %}
+                    <button type="submit" class="text-red-600 hover:text-red-800">Logout</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Page Content -->
+        <div class="p-6">
+            {% if messages %}
+                <div class="mb-6">
+                    {% for message in messages %}
+                        <div class="p-4 mb-4 rounded-md {% if message.tags == 'success' %}bg-green-50 text-green-800 border border-green-200{% elif message.tags == 'error' %}bg-red-50 text-red-800 border border-red-200{% else %}bg-blue-50 text-blue-800 border border-blue-200{% endif %}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% block admin_content %}{% endblock %}
+        </div>
+    </div>
+</div>
+{% endblock %}

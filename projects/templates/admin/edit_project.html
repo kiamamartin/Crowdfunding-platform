@@ -1,0 +1,53 @@
+{% extends 'admin/base_admin.html' %}
+
+{% block admin_title %}Edit Project{% endblock %}
+
+{% block admin_content %}
+<div class="bg-white rounded-lg shadow-md p-6">
+    <h2 class="text-xl font-semibold mb-6">Edit Project: {{ project.title }}</h2>
+    
+    <form method="post" enctype="multipart/form-data" class="space-y-6">
+        {% csrf_token %}
+        
+        {% for field in form %}
+        <div class="space-y-2">
+            <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-gray-700">
+                {{ field.label }}
+            </label>
+            
+            {% if field.name == 'image' %}
+                {% if project.image %}
+                <div class="mb-2">
+                    <img src="{{ project.image.url }}" alt="{{ project.title }}" class="h-32 w-auto object-cover rounded-md">
+                    <p class="text-sm text-gray-500 mt-1">Current image</p>
+                </div>
+                {% endif %}
+            {% endif %}
+            
+            {{ field }}
+            
+            {% if field.help_text %}
+            <p class="text-sm text-gray-500">{{ field.help_text }}</p>
+            {% endif %}
+            
+            {% if field.errors %}
+            <div class="text-red-500 text-sm">
+                {% for error in field.errors %}
+                <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+        
+        <div class="flex justify-end space-x-4">
+            <a href="{% url 'admin_projects' %}" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300">
+                Cancel
+            </a>
+            <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">
+                Save Changes
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}
